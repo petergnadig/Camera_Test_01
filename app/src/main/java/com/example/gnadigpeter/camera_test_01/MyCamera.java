@@ -44,37 +44,39 @@ public class MyCamera extends ActionBarActivity {
         preview = (FrameLayout) findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
         ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
-        preview.addView(mPreview);
 
         final Button captureButton = (Button) findViewById(R.id.buttonPhoto);
         captureButton.setOnClickListener(
-                new OnClickListener(){
+                new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mCamera.takePicture(null, null, mPicture);
-                        captureButton.setEnabled(false);
-                        nwphotoButton.setEnabled(true);
-                        if (mCamera != null){
+                        /* captureButton.setEnabled(false); */
+                        /* newButton.setEnabled(true);*/
+                        if (mCamera != null) {
                             mCamera.release();
+                        }
                     }
                 }
         );
-
-        final Button nwphotoButton = (Button) findViewById(R.id.buttonNewPhoto);
-        nwphotoButton.setOnClickListener(
+        final Button newButton = (Button) findViewById(R.id.buttonNewPhoto);
+        newButton.setOnClickListener(
                 new OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         mCamera= android.hardware.Camera.open(0);
+                        mPreview = new MyPreview(this, mCamera);
                         preview = (FrameLayout) findViewById(R.id.cameraPreview);
                         preview.addView(mPreview);
-                        captureButton.setEnabled(true);
-                        nwphotoButton.setEnabled(false);
+                        ivPhoto.setVisibility(View.INVISIBLE);
+                        /*captureButton.setEnabled(true);*/
+                        /*newButton.setEnabled(false);*/
                     }
                 }
-        )
+        );
 
-    };
+    }
+
 
 
     @Override
